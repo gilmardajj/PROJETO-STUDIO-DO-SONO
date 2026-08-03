@@ -506,23 +506,27 @@
       <div class="w-full flex md:flex-row flex-col items-stretch justify-center gap-8 lg:gap-16">
         <div class="bg-white rounded-[2rem] p-8 md:p-12 w-full md:w-[500px] lg:w-[600px] shadow-sm border border-gray-50">
           <h3 class="text-3xl lg:text-4xl font-semibold text-brand-primary text-center mb-10 leading-tight">Envie seu Pedido ou Duvida.</h3>
-          <form data-contact-form class="flex flex-col gap-6">
+          <form data-contact-form action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-6">
+            <input type="hidden" name="access_key" value="ab51cc48-1494-4e4e-89be-5a886b870f3e">
+            <input type="hidden" name="subject" value="Site Studio do Sono - Pedido/Dúvida (Home)">
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off">
             <label class="flex flex-col gap-2">
               <span class="text-gray-500 font-medium ml-1">Nome</span>
-              <input type="text" placeholder="Digite seu nome" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all text-gray-700 placeholder:text-gray-400">
+              <input type="text" name="name" required placeholder="Digite seu nome" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all text-gray-700 placeholder:text-gray-400">
             </label>
             <label class="flex flex-col gap-2">
               <span class="text-gray-500 font-medium ml-1">Email</span>
-              <input type="email" placeholder="Digite seu e-mail" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all text-gray-700 placeholder:text-gray-400">
+              <input type="email" name="email" required placeholder="Digite seu e-mail" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all text-gray-700 placeholder:text-gray-400">
             </label>
             <label class="flex flex-col gap-2">
               <span class="text-gray-500 font-medium ml-1">Tel/WhatsApp</span>
-              <input type="tel" placeholder="Digite seu Telefone ou WhatsApp" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all text-gray-700 placeholder:text-gray-400">
+              <input type="tel" name="phone" placeholder="Digite seu Telefone ou WhatsApp" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all text-gray-700 placeholder:text-gray-400">
             </label>
             <label class="flex flex-col gap-2">
               <span class="text-gray-500 font-medium ml-1">Mensagem</span>
-              <textarea rows="4" placeholder="Escreva seu pedido ou duvida" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all resize-y text-gray-700 placeholder:text-gray-400"></textarea>
+              <textarea name="message" required rows="4" placeholder="Escreva seu pedido ou duvida" class="w-full bg-gray-100/50 border border-gray-200/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all resize-y text-gray-700 placeholder:text-gray-400"></textarea>
             </label>
+            <div data-form-feedback class="hidden text-sm font-medium rounded-xl px-4 py-3"></div>
             <button type="submit" class="inline-flex items-center justify-center gap-2 w-full py-5 text-lg mt-2 bg-brand-primary text-white rounded-xl font-medium hover:bg-brand-primary/90 transition-all duration-200 shadow-sm">Enviar</button>
           </form>
         </div>
@@ -591,15 +595,31 @@
   </div>
 </footer>
 
-<!-- BACK TO TOP -->
-<button
-  type="button"
-  id="back-to-top"
-  aria-label="Voltar ao topo"
-  class="fixed right-5 bottom-5 md:right-8 md:bottom-8 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-primary text-white shadow-lg flex items-center justify-center opacity-0 translate-y-4 pointer-events-none transition-all duration-300 ease-out hover:bg-white hover:text-brand-primary hover:shadow-xl hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
->
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-</button>
+<!-- FLOATING ACTIONS -->
+<div class="fixed right-5 bottom-5 md:right-8 md:bottom-8 z-40 flex flex-col items-end gap-3">
+  <!-- BACK TO TOP -->
+  <button
+    type="button"
+    id="back-to-top"
+    aria-label="Voltar ao topo"
+    class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-brand-primary text-white shadow-lg flex items-center justify-center opacity-0 translate-y-4 pointer-events-none transition-all duration-300 ease-out hover:bg-white hover:text-brand-primary hover:shadow-xl hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+  >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- WHATSAPP CONSULTOR -->
+  <a
+    id="whatsapp-consultor"
+    href="https://wa.me/5521971194170?text=Ol%C3%A1%21%20Vim%20do%20site%20da%20Studio%20do%20Sono%20e%20gostaria%20de%20falar%20com%20um%20consultor."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Falar com consultor no WhatsApp"
+    class="group inline-flex items-center h-12 md:h-14 pl-3 pr-3 md:pl-4 md:pr-4 rounded-full bg-[#5bc565] hover:bg-[#4eb658] text-white shadow-lg hover:shadow-xl transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#5bc565]"
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="shrink-0"><path d="M12.031 2.056c-5.5 0-9.98 4.479-9.98 9.98 0 1.76.452 3.475 1.312 4.985L2.05 21.942l4.897-1.282c1.474.779 3.14 1.192 4.86 1.192h.004c5.498 0 9.978-4.48 9.978-9.981 0-2.667-1.037-5.174-2.92-7.062a9.92 9.92 0 00-7.05-2.93zM12.03 20.17c-1.488 0-2.936-.398-4.208-1.152l-.3-.178-3.125.82.834-3.047-.196-.312c-.828-1.315-1.266-2.837-1.266-4.405 0-4.57 3.722-8.293 8.293-8.293 2.215 0 4.298.863 5.865 2.43a8.232 8.232 0 012.43 5.865c-.001 4.571-3.724 8.294-8.295 8.294h-.002z"/></svg>
+    <span class="max-w-0 group-hover:max-w-[180px] group-hover:ml-2.5 overflow-hidden whitespace-nowrap font-semibold text-sm md:text-base transition-all duration-300 ease-out">Falar com Consultor</span>
+  </a>
+</div>
 
 <script src="/js/data.js?v=1780480349"></script>
 <script src="/js/main.js?v=1780480349"></script>
