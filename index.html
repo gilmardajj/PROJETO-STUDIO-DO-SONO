@@ -42,6 +42,11 @@ src="https://www.facebook.com/tr?id=1385495733536482&ev=PageView&noscript=1"
   <link rel="canonical" href="https://studiodosono.com.br">
   <link rel="icon" href="https://framerusercontent.com/images/iHbLTZPNtOHKKk7NI7ePjcdEUFA.png">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@300;400;500;600;700&display=swap">
+  <style>
+    /* Banner 1: texto na fonte oficial da marca (Work Sans) */
+    .fonte-marca { font-family: 'Work Sans', 'Poppins', sans-serif; }
+  </style>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -179,17 +184,75 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main class="flex-1">
 
   <!-- HERO -->
-  <section class="relative w-full h-[420px] md:h-[480px] lg:h-[560px] flex items-center overflow-hidden">
-    <img src="images/banner-principal.png" alt="Banner Principal" class="absolute inset-0 w-full h-full object-cover object-center">
-    <div class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-[40%] w-[1000px] h-[1000px] bg-white rounded-full blur-[100px] opacity-90 pointer-events-none"></div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+  <section class="relative w-full h-[460px] md:h-[480px] lg:h-[560px] flex items-center overflow-hidden">
+    <!-- Carrossel do banner -->
+    <div id="hero-carousel" class="absolute inset-0" aria-roledescription="carrossel" aria-label="Banner principal">
+      <img src="images/banner-principal.png" alt="Banner Principal" class="hero-slide absolute inset-0 w-full h-full object-cover object-[70%_center] md:object-center transition-opacity duration-1000 opacity-100">
+      <!-- No celular usa a versão vertical do banner (images/banner-black-studio-mobile.png), para não cortar o texto -->
+      <picture>
+        <source media="(max-width: 767px)" srcset="images/banner-black-studio-mobile.png">
+        <img src="images/banner-black-studio.png" alt="Black Studio: toda a loja com até 50% off e entrega em até 3 dias úteis" class="hero-slide absolute inset-0 w-full h-full object-cover object-center bg-black transition-opacity duration-1000 opacity-0" aria-hidden="true">
+      </picture>
+    </div>
+    <!-- Conteúdo exibido só no banner 1 -->
+    <div class="hero-conteudo absolute inset-0 pointer-events-none transition-opacity duration-1000 opacity-100">
+      <div class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-[40%] w-[1000px] h-[1000px] bg-white rounded-full blur-[100px] opacity-90"></div>
+    </div>
+    <div class="hero-conteudo fonte-marca relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-0 w-full transition-opacity duration-1000 opacity-100">
       <div class="max-w-[600px]">
         <h1 class="text-4xl md:text-5xl lg:text-[3.25rem] font-semibold text-brand-primary leading-[1.1] mb-5 drop-shadow-sm">Conheça o verdadeiro<br>prazer de dormir bem.</h1>
         <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-lg leading-relaxed mix-blend-multiply">Com as melhores marcas internacionais, presentes nos maiores hotéis do mundo.</p>
         <a href="/produtos/" class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-medium bg-brand-primary text-white hover:bg-brand-primary/90 shadow-sm transition-all duration-200">Descubra nossos produtos <svg class="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
       </div>
     </div>
+    <!-- Setas do carrossel (no celular ficam embaixo, ao lado das bolinhas; no computador, nas laterais) -->
+    <button type="button" id="hero-prev" aria-label="Banner anterior" class="absolute left-[calc(50%-5.5rem)] bottom-1.5 md:bottom-auto md:left-6 md:top-1/2 md:-translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/80 hover:bg-white text-brand-primary shadow flex items-center justify-center transition">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button type="button" id="hero-next" aria-label="Próximo banner" class="absolute right-[calc(50%-5.5rem)] bottom-1.5 md:bottom-auto md:right-6 md:top-1/2 md:-translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/80 hover:bg-white text-brand-primary shadow flex items-center justify-center transition">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <!-- Bolinhas do carrossel -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <button type="button" class="hero-dot w-3 h-3 rounded-full bg-brand-primary transition" aria-label="Ir para o banner 1"></button>
+      <button type="button" class="hero-dot w-3 h-3 rounded-full bg-brand-primary/30 transition" aria-label="Ir para o banner 2"></button>
+    </div>
   </section>
+  <script>
+    (function () {
+      var slides = document.querySelectorAll('#hero-carousel .hero-slide');
+      var dots = document.querySelectorAll('.hero-dot');
+      var conteudo = document.querySelectorAll('.hero-conteudo');
+      var atual = 0, timer = null, TEMPO = 5000;
+      function mostrar(i) {
+        atual = (i + slides.length) % slides.length;
+        slides.forEach(function (s, n) {
+          s.classList.toggle('opacity-100', n === atual);
+          s.classList.toggle('opacity-0', n !== atual);
+          s.setAttribute('aria-hidden', n === atual ? 'false' : 'true');
+        });
+        conteudo.forEach(function (c) {
+          c.classList.toggle('opacity-100', atual === 0);
+          c.classList.toggle('opacity-0', atual !== 0);
+          c.classList.toggle('pointer-events-none', atual !== 0 || !c.classList.contains('relative'));
+          c.setAttribute('aria-hidden', atual === 0 ? 'false' : 'true');
+        });
+        dots.forEach(function (d, n) {
+          d.classList.toggle('bg-brand-primary', n === atual);
+          d.classList.toggle('bg-brand-primary/30', n !== atual);
+        });
+      }
+      function iniciar() { parar(); timer = setInterval(function () { mostrar(atual + 1); }, TEMPO); }
+      function parar() { if (timer) clearInterval(timer); }
+      document.getElementById('hero-prev').addEventListener('click', function () { mostrar(atual - 1); iniciar(); });
+      document.getElementById('hero-next').addEventListener('click', function () { mostrar(atual + 1); iniciar(); });
+      dots.forEach(function (d, n) { d.addEventListener('click', function () { mostrar(n); iniciar(); }); });
+      var secao = document.getElementById('hero-carousel').parentElement;
+      secao.addEventListener('mouseenter', parar);
+      secao.addEventListener('mouseleave', iniciar);
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) iniciar();
+    })();
+  </script>
 
   <!-- BRANDS -->
   <section class="bg-brand-primary w-full overflow-hidden shadow-[inset_0_20px_40px_rgba(0,0,0,0.1)]">
@@ -207,8 +270,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- VÍDEO -->
+  <section id="video" class="pt-16 md:pt-24 pb-12 md:pb-16 bg-brand-bg">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-semibold text-brand-primary leading-tight text-center max-w-3xl mx-auto mb-8 md:mb-12">King Koil: tradição e tecnologia em cada detalhe</h2>
+      <div class="relative w-full md:w-4/5 lg:w-3/5 mx-auto aspect-video rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl bg-black">
+        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/Q03n7XrRQQk?start=110&rel=0" title="Vídeo Studio do Sono" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
   <!-- ABOUT -->
-  <section id="quem-somos" class="py-24 max-w-7xl mx-auto px-4">
+  <section id="quem-somos" class="py-16 md:py-24 max-w-7xl mx-auto px-4">
     <div class="flex flex-col lg:flex-row gap-16 items-center">
       <div class="w-full lg:w-1/2">
         <h2 class="text-4xl md:text-5xl font-semibold text-brand-primary leading-tight mb-12">Há mais de 35 anos criando o quarto dos sonhos.</h2>
@@ -652,10 +725,95 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     aria-label="Falar com consultor no WhatsApp"
     class="group inline-flex items-center h-12 md:h-14 pl-3 pr-3 md:pl-4 md:pr-4 rounded-full bg-[#5bc565] hover:bg-[#4eb658] text-white shadow-lg hover:shadow-xl transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#5bc565]"
   >
-    <img src="/images/icon-whatsapp.png" alt="WhatsApp" width="24" height="24" class="shrink-0">
+    <img src="images/icon-whatsapp.png" alt="WhatsApp" width="24" height="24" class="shrink-0">
     <span class="max-w-0 group-hover:max-w-[180px] group-hover:ml-2.5 overflow-hidden whitespace-nowrap font-semibold text-sm md:text-base transition-all duration-300 ease-out">Falar com Consultor</span>
   </a>
 </div>
+
+  <!-- POP-UP BLACK STUDIO (aparece 1 vez por visita, depois de 1,5 s). Para trocar a oferta, edite os textos e a foto abaixo. -->
+  <style>
+    .popup-oferta { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0,0,0,.7); opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; font-family: 'Work Sans', 'Poppins', sans-serif; color: #4f6479; }
+    .popup-oferta.aberto { opacity: 1; visibility: visible; }
+    .po-card { position: relative; width: 100%; max-width: 893px; max-height: calc(100vh - 32px); overflow-y: auto; background: #fff; border-radius: 28px; transform: translateY(16px) scale(.98); transition: transform .3s; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+    .popup-oferta.aberto .po-card { transform: none; }
+    .po-topo { background: #000; color: #fff; text-align: center; padding: 37px 24px 30px; border-radius: 28px 28px 0 0; }
+    .po-logo { margin: 0; font-family: 'Anton', 'Impact', sans-serif; font-weight: 400; font-size: 58px; line-height: 1; letter-spacing: -.005em; }
+    .po-logo span { color: #ffc100; }
+    .po-sub { margin: 4px 0 0; font-size: 18px; letter-spacing: -.005em; }
+    .po-fechar { position: absolute; top: 14px; right: 14px; z-index: 2; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(255,255,255,.15); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .po-fechar:hover { background: rgba(255,255,255,.28); }
+    .po-fechar:focus:not(:focus-visible) { outline: none; }
+    .po-corpo { display: flex; gap: 37px; padding: 51px 38px 55px 62px; }
+    .po-foto-box { position: relative; width: 371px; height: 371px; flex-shrink: 0; }
+    .po-foto { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .po-bandeira { position: absolute; left: 12px; bottom: 10px; width: 57px; height: 37px; object-fit: cover; display: block; }
+    .po-info { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+    .po-produto { margin: 0; font-size: 24px; line-height: 1.2; }
+    .po-produto strong { font-weight: 700; }
+    .po-produto small { font-size: 10px; font-weight: 700; margin-left: 3px; }
+    .po-preco { margin: 6px 0 0; display: flex; align-items: flex-start; font-weight: 700; line-height: 1; }
+    .po-rs { font-size: 30px; margin-top: 7px; margin-right: 5px; }
+    .po-valor { font-size: 66px; letter-spacing: -.02em; }
+    .po-cent { font-size: 30px; margin-top: 5px; margin-left: 3px; }
+    .po-cond { margin: 6px 0 0; font-size: 18px; }
+    .po-botao { margin-top: 84px; align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 267px; height: 47px; border-radius: 12px; background: #00c65e; color: #fff; font-weight: 700; font-size: 19px; letter-spacing: -.01em; text-decoration: none; transition: background .2s; }
+    .po-botao:hover { background: #00b052; }
+    .po-botao img { width: 26px; height: 26px; }
+    @media (max-width: 760px) {
+      .po-card { border-radius: 20px; }
+      .po-topo { padding: 30px 22px 20px; border-radius: 20px 20px 0 0; }
+      .po-logo { font-size: 40px; }
+      .po-sub { font-size: 14px; }
+      .po-corpo { flex-direction: column; align-items: center; gap: 18px; padding: 22px 20px 26px; text-align: center; }
+      .po-foto-box { width: 100%; max-width: 260px; height: auto; aspect-ratio: 1; }
+      .po-bandeira { width: 42px; height: 28px; left: 8px; bottom: 8px; }
+      .po-info { align-items: center; }
+      .po-produto { font-size: 18px; }
+      .po-preco { justify-content: center; }
+      .po-rs, .po-cent { font-size: 24px; }
+      .po-valor { font-size: 50px; }
+      .po-cond { font-size: 15px; }
+      .po-botao { margin-top: 18px; align-self: center; }
+    }
+  </style>
+  <div id="popup-oferta" class="popup-oferta" role="dialog" aria-modal="true" aria-labelledby="po-titulo" aria-hidden="true">
+    <div class="po-card">
+      <button type="button" class="po-fechar" aria-label="Fechar">&times;</button>
+      <div class="po-topo">
+        <h2 id="po-titulo" class="po-logo">BLACK<span>STUDIO</span></h2>
+        <p class="po-sub">Ofertas durante todo o mês de novembro para você renovar o seu descanso</p>
+      </div>
+      <div class="po-corpo">
+        <div class="po-foto-box">
+          <img class="po-foto" src="images/popup-oferta-bold.webp" alt="Colchão Pikolin Bold Casal" width="371" height="371">
+          <img class="po-bandeira" src="images/bandeira-espanha.svg" alt="Fabricado na Espanha" title="Fabricado na Espanha">
+        </div>
+        <div class="po-info">
+          <p class="po-produto"><strong>Colchão Pikolin Bold Casal</strong><small>(1,88x1,38m)</small><br>de R$6.969,00 por</p>
+          <p class="po-preco"><span class="po-rs">R$</span><span class="po-valor">3.739</span><span class="po-cent">,00</span></p>
+          <p class="po-cond">à vista ou em até 12x sem juros</p>
+          <a class="po-botao" href="https://wa.me/5521971194170?text=Ol%C3%A1%21%20Vim%20do%20site%20da%20Studio%20do%20Sono%20e%20gostaria%20de%20falar%20com%20um%20consultor." target="_blank" rel="noopener noreferrer">Falar no WhatsApp <img src="images/icon-whatsapp.png" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var pop = document.getElementById('popup-oferta');
+      var CHAVE = 'popupOfertaVisto';
+      try { if (sessionStorage.getItem(CHAVE)) return; } catch (e) {}
+      function abrir() { pop.classList.add('aberto'); pop.setAttribute('aria-hidden', 'false'); pop.querySelector('.po-fechar').focus(); }
+      function fechar() {
+        pop.classList.remove('aberto'); pop.setAttribute('aria-hidden', 'true');
+        try { sessionStorage.setItem(CHAVE, '1'); } catch (e) {}
+      }
+      pop.querySelector('.po-fechar').addEventListener('click', fechar);
+      pop.addEventListener('click', function (e) { if (e.target === pop) fechar(); });
+      pop.querySelector('.po-botao').addEventListener('click', fechar);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && pop.classList.contains('aberto')) fechar(); });
+      setTimeout(abrir, 1500);
+    })();
+  </script>
 
 <script src="/js/data.js?v=1780480349"></script>
 <script src="/js/main.js?v=1780480349"></script>
