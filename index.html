@@ -275,12 +275,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- OFERTAS BLACK STUDIO
        Para trocar uma oferta: edite a foto, o nome, a medida, o preço e as condições do box.
-       Para adicionar um produto: copie um bloco <article class="of-item">...</article> inteiro e cole ao lado.
+       Para adicionar um produto: copie um bloco <a class="of-item" ...>...</a> inteiro e cole ao lado.
        Para tirar a seção do ar depois da Black Friday: apague tudo entre este comentário e o "FIM OFERTAS". -->
   <style>
     .ofertas { background-color: #0a0a0a; background-image: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.07), transparent 60%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); font-family: 'Work Sans', 'Poppins', sans-serif; color: #fff; }
     .of-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 28px 40px; }
-    .of-item { display: flex; align-items: center; gap: 22px; }
+    .of-item { display: flex; align-items: center; gap: 22px; color: inherit; text-decoration: none; border-radius: 20px; }
+    .of-box { transition: transform .25s ease, box-shadow .25s ease; }
+    .of-item:hover .of-box, .of-item:focus-visible .of-box { transform: translateY(-4px); box-shadow: 0 0 0 2px #ffc100, 0 20px 40px rgba(0,0,0,.55); }
+    .of-item:focus-visible { outline: 2px solid #ffc100; outline-offset: 6px; }
     .of-box { flex: 0 0 44%; max-width: 220px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,193,0,.55), 0 16px 36px rgba(0,0,0,.45); }
     .of-foto { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
     .of-info { flex: 1; min-width: 0; }
@@ -304,7 +307,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section id="ofertas" class="ofertas py-10 md:py-12 px-4" aria-label="Ofertas Black Studio">
     <div class="max-w-5xl mx-auto of-lista">
 
-      <article class="of-item">
+      <a class="of-item" href="https://wa.me/5521971194170?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20os%20produtos%20em%20oferta%20do%20site." target="_blank" rel="noopener noreferrer">
         <div class="of-box"><img class="of-foto" src="images/ofertas/pikolin-bold.webp" alt="Colchão Pikolin Bold Casal" width="380" height="380" loading="lazy"></div>
         <div class="of-info">
           <h3 class="of-nome">Colchão Pikolin Bold Casal <small>(1,88x1,38m)</small></h3>
@@ -312,9 +315,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="of-preco"><span class="of-rs">R$</span><span class="of-valor">3.739</span><span class="of-cent">,00</span></p>
           <p class="of-cond">à vista ou em até 12x sem juros<br>de R$311,59</p>
         </div>
-      </article>
+      </a>
 
-      <article class="of-item">
+      <a class="of-item" href="https://wa.me/5521971194170?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20os%20produtos%20em%20oferta%20do%20site." target="_blank" rel="noopener noreferrer">
         <div class="of-box"><img class="of-foto" src="images/ofertas/bicama-flat.webp" alt="Bicama Flat com Elevação" width="800" height="800" loading="lazy"></div>
         <div class="of-info">
           <h3 class="of-nome">Bicama Flat com Elevação <small>(0,88x1,88m)</small></h3>
@@ -322,7 +325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="of-preco"><span class="of-rs">R$</span><span class="of-valor">3.480</span><span class="of-cent">,00</span></p>
           <p class="of-cond">à vista ou em até 12x sem juros<br>de R$290,00</p>
         </div>
-      </article>
+      </a>
 
     </div>
   </section>
