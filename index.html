@@ -273,6 +273,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- OFERTAS BLACK STUDIO
+       Para trocar uma oferta: edite a foto, o nome, a medida, o preço e as condições do box.
+       Para adicionar um produto: copie um bloco <article class="of-card">...</article> inteiro e cole ao lado.
+       Para tirar a seção do ar depois da Black Friday: apague tudo entre este comentário e o "FIM OFERTAS". -->
+  <style>
+    .ofertas { background-color: #0a0a0a; background-image: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.07), transparent 60%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); font-family: 'Work Sans', 'Poppins', sans-serif; }
+    .of-logo { font-family: 'Anton', 'Impact', sans-serif; font-weight: 400; line-height: 1; letter-spacing: -.005em; }
+    .of-logo span { color: #ffc100; }
+    .of-card { width: 100%; max-width: 420px; background: #fff; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 0 0 1px rgba(255,193,0,.55), 0 18px 40px rgba(0,0,0,.45); }
+    .of-foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: #fff; }
+    .of-info { flex: 1; text-align: center; padding: 18px 20px 24px; color: #2b2b2b; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+    .of-nome { margin: 0; color: #f2b400; font-weight: 700; font-size: 21px; line-height: 1.2; }
+    .of-nome small { font-size: 9px; font-weight: 600; margin-left: 2px; white-space: nowrap; }
+    .of-de { margin: 4px 0 0; font-size: 19px; font-weight: 500; }
+    .of-preco { margin: 2px 0 0; display: flex; align-items: flex-start; justify-content: center; font-weight: 700; line-height: 1; }
+    .of-rs { font-size: 26px; margin-top: 6px; margin-right: 4px; }
+    .of-valor { font-size: 58px; letter-spacing: -.02em; }
+    .of-cent { font-size: 26px; margin-top: 4px; margin-left: 2px; }
+    .of-cond { margin: 8px 0 0; font-size: 16px; }
+    @media (max-width: 640px) { .of-nome { font-size: 18px; } .of-de { font-size: 16px; } .of-valor { font-size: 48px; } .of-rs, .of-cent { font-size: 22px; } .of-cond { font-size: 14px; } }
+  </style>
+  <section id="ofertas" class="ofertas py-16 md:py-24 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 md:mb-14">
+        <h2 class="of-logo text-white text-5xl md:text-7xl">BLACK<span>STUDIO</span></h2>
+        <p class="mt-3 text-white/80 text-base md:text-lg">Ofertas durante todo o mês de novembro para você renovar o seu descanso</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+
+        <article class="of-card">
+          <img class="of-foto" src="images/ofertas/pikolin-bold.webp" alt="Colchão Pikolin Bold Casal" width="380" height="285" loading="lazy">
+          <div class="of-info">
+            <h3 class="of-nome">Colchão Pikolin Bold Casal <small>(1,88x1,38m)</small></h3>
+            <p class="of-de">de R$6.969,00 por</p>
+            <p class="of-preco"><span class="of-rs">R$</span><span class="of-valor">3.739</span><span class="of-cent">,00</span></p>
+            <p class="of-cond">à vista ou em até 12x sem juros</p>
+          </div>
+        </article>
+
+        <article class="of-card">
+          <img class="of-foto" src="images/ofertas/bicama-flat.webp" alt="Bicama Flat com Elevação" width="800" height="600" loading="lazy">
+          <div class="of-info">
+            <h3 class="of-nome">Bicama Flat com Elevação <small>(0,88x1,88m)</small></h3>
+            <p class="of-de">a partir de</p>
+            <p class="of-preco"><span class="of-rs">R$</span><span class="of-valor">3.480</span><span class="of-cent">,00</span></p>
+            <p class="of-cond">à vista ou em até 12x sem juros de R$290</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+  <!-- FIM OFERTAS -->
+
   <!-- VÍDEO -->
   <section id="video" class="pt-16 md:pt-24 pb-12 md:pb-16 bg-brand-bg">
     <div class="max-w-7xl mx-auto px-4">
